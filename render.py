@@ -8,7 +8,7 @@ SQUARE_SIZE = 80
 BOARD_AREA = BOARD_SIZE * SQUARE_SIZE
 IMAGE_DIR = r"./Pieces"
 
-board = [
+starting_board = [
     ["bR","bN","bB","bQ","bK","bB","bN","bR"],
     ["bP","bP","bP","bP","bP","bP","bP","bP"],
     [None]*8,
@@ -34,3 +34,20 @@ def draw_board(surface: pygame.Surface) -> None:
                 (col*SQUARE_SIZE, row*SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE)
             )
             
+def draw_pieces(surface: pygame.Surface, board: list, pieces: dict):
+    for row in range(BOARD_SIZE):
+        for col in range(BOARD_SIZE):
+            code = board[row][col]
+            if code and code in pieces:
+                surface.blit(pieces[code], (col * SQUARE_SIZE, row * SQUARE_SIZE))
+                
+def draw_chess_board(surface: pygame.Surface, board: list, pieces: dict) -> None:
+    draw_board(surface)
+    draw_pieces(surface, board, pieces)
+            
+def load_images(img_dict: str) -> dict:
+    print("HEllo")
+
+         
+def main():
+    print("Hello")
