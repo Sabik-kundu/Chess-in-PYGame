@@ -46,8 +46,46 @@ def draw_chess_board(surface: pygame.Surface, board: list, pieces: dict) -> None
     draw_pieces(surface, board, pieces)
             
 def load_images(img_dict: str) -> dict:
-    print("HEllo")
-
+    pieces = {}
+    for code, filename in piece_img.items():
+        path = os.path.join(img_dict, filename)
+        if os.path.exists(path):
+            img = pygame.image.load(path).convert_alpha()
+            pieces[code] = pygame.transform.smoothscale(img, (SQUARE_SIZE, SQUARE_SIZE))
+        else:
+            print("Image not found")
+    return pieces
          
 def main():
-    print("Hello")
+    WINDOW_W = BOARD_AREA + 240
+    WINDOW_H = BOARD_AREA 
+    BOARD_RECT = pygame.Rect(0, 0, BOARD_AREA, BOARD_AREA)
+    
+    pygame.init()
+    
+    screen = pygame.display.set_mode((WINDOW_W, WINDOW_H))
+    pygame.display.set_caption("Chess Game")
+    clock = pygame.time.Clock()
+    
+    pieces = load_images(IMAGE_DIR)
+    board = [row[:] for row in starting_board]
+    board_surface = screen.subsurface(BOARD_RECT)
+    
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                running = False
+                
+        screen.fill((30, 30, 30))
+        draw_chess_board(board_surface, board, pieces)
+        pygame.display.update()
+        clock.tick(60)
+    
+    pygame.quit()
+    sys.exit()
+
+if __name__ == "__main__":
+    main()
