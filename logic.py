@@ -59,6 +59,17 @@ class pieces:
                     'L': False,
                     'multi step': False
                 }
+    def sight(self):
+        if self.move['multi step']:
+            count = 30
+        else:
+            count = 1
+        possible_moves = []
+        for i in range(count):
+            possible_moves[i] = [
+                check.movement(self)
+            ]
+        return possible_moves
 
 class check:
     def movement(piece):
@@ -67,17 +78,5 @@ class check:
         print('test')
     def check(piece):
         print('test')
-
-def sight(piece):
-    if piece.move['multi step']:
-        count = 30
-    else:
-        count = 1
-    possible_moves = []
-    for i in range(count):
-        possible_moves[i] = [
-            check.movement(piece)
-        ]
-    return possible_moves
 
     
